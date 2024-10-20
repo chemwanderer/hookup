@@ -81,17 +81,14 @@ namespace gui::item {
 		QString uniqueName = _info.value(pact::item::__uniqueNameKey__).toString();
 		QString description = _info.value(pact::item::__descriptionKey__).toString();
 
-		//QString valueReadID = _info.value(pact::item::controlled::__valueReadIDKey__).toString();
 		QString valueEstID = _info.value(pact::item::controlled::__valueEstIDKey__).toString();
-
-		//auto* pValueReadPrm = dynamic_cast<engine::Parameter<qreal>*>(engine::Terminal::parameter(valueReadID));
+		
 		auto* pValueEstPrm = dynamic_cast<engine::Parameter<qreal>*>(engine::Terminal::parameter(valueEstID));
 		if (!pValueEstPrm) { return nullptr; }
 
 		auto* pControlledValueWidget = new ControlledValue(uniqueName, _pParent);
 		pControlledValueWidget->description_ = description;
 
-		//pControlledValueWidget->pValueRead_ = pValueReadPrm;
 		pControlledValueWidget->pValueEst_ = pValueEstPrm;
 		pControlledValueWidget->ui.labelValueName->setText(description);
 
@@ -180,11 +177,7 @@ namespace gui::item {
 		QString uniqueName = _info.value(pact::item::__uniqueNameKey__).toString();
 		QString description = _info.value(pact::item::__descriptionKey__).toString();
 
-		//QString stateReadID = _info.value(pact::item::toggle::__stateReadID__).toString();
 		QString stateEstID = _info.value(pact::item::toggle::__stateEstID__).toString();
-
-		//auto* pStateReadPrm = dynamic_cast<engine::Parameter<engine::ToggleStatus>*>(engine::Terminal::parameter(stateReadID));
-		//if (!pStateReadPrm) { return nullptr; }
 
 		auto* pStateEstPrm = dynamic_cast<engine::Parameter<bool>*>(engine::Terminal::parameter(stateEstID));
 		if (!pStateEstPrm) { return nullptr; }
@@ -193,7 +186,6 @@ namespace gui::item {
 		pToggleWidget->description_ = description;
 
 		pToggleWidget->pStateEst_ = pStateEstPrm;
-		//pToggleWidget->pStateRead_ = pStateReadPrm;
 
 		if (_info.contains(pact::item::toggle::__feedbackStatusID__)) {
 			QString feedbackStatusID = _info.value(pact::item::toggle::__feedbackStatusID__).toString();
