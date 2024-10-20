@@ -1,0 +1,160 @@
+{
+    "Parameters":[
+		{
+			"Type": "Boolean",
+			"ID": "MBED_Server_Toggle",
+			"Description": "Switcher for MBED Server",
+			"Manual Control": true
+		},{
+			"Type": "Routine Status",
+			"ID": "MBED_Server_Status",
+			"Description": "MBED Server Status"
+		},{
+			"Type": "Boolean",
+			"ID": "UDP_Server_Toggle",
+			"Description": "Switcher for UDP Server",
+			"Manual Control": true
+		},{
+			"Type": "Routine Status",
+			"ID": "UDP_Server_Status",
+			"Description": "UDP Server Status"
+		},
+		
+		{
+			"Type": "Toggle Status",
+			"ID": "Nucleo_Onboard_LED_State_Read",
+			"Description": "Read State (Nucleo Onboard LED)"
+		},{
+			"Type": "Boolean",
+			"ID": "Nucleo_Onboard_LED_State_Est",
+			"Description": "Est. State (Nucleo Onboard LED)",
+			"Manual Control": true
+		},{
+			"Type": "Toggle Status",
+			"ID": "Laser_650nm_State_Read",
+			"Description": "Read State (Laser 650 nm)"
+		},{
+			"Type": "Boolean",
+			"ID": "Laser_650nm_State_Est",
+			"Description": "Est. State (Laser 650 nm)",
+			"Manual Control": true
+		},{
+			"Type": "Real",
+			"ID": "ADC_Channel_0",
+			"Description": "Channel 0 (ADC)",
+			"Manual Control": false
+		},{
+			"Type": "Real",
+			"ID": "ADC_Channel_1",
+			"Description": "Channel 1 (ADC)",
+			"Manual Control": false
+		},{
+			"Type": "Real",
+			"ID": "MCP4725_Value",
+			"Description": "MCP4725 Est. Value",
+			"Manual Control": true
+		},{
+			"Type": "Boolean",
+			"ID": "Nucleo_Feedback_Status",
+			"Description": "Feedback Status (Nucleo)",
+			"Manual Control": false
+		},
+		
+		{
+			"Type": "Boolean",
+			"ID": "Voltage_Oscillation_Toggle",
+			"Description": "Switcher for Voltage Oscillator",
+			"Manual Control": true
+		},{
+			"Type": "Routine Status",
+			"ID": "Voltage_Oscillation_Status",
+			"Description": "Status for Voltage Oscillator"
+		},{
+			"Type": "Real",
+			"ID": "Oscillator_Amplitude",
+			"Description": "Amplitude (normalized)",
+			"Manual Control": true
+		},{
+			"Type": "Real",
+			"ID": "Oscillator_Period",
+			"Description": "Period (s)",
+			"Manual Control": true
+		},{
+			"Type": "Real",
+			"ID": "Oscillator_Offset",
+			"Description": "Offset (normalized)",
+			"Manual Control": true
+		}
+    ],
+
+    "Routines":[
+		{
+			"Type": "UDP Server",
+			"ID": "UDP_Server",
+			"Description": "UDP Server Data Exchange Routine",
+			
+			"Toggle ID": "UDP_Server_Toggle",
+			"Status ID": "UDP_Server_Status",
+			
+			"Connected Host Name": "192.168.0.3",
+			"Sending Port": 7001,
+			"Reading Port": 5501
+		},{
+			"Type": "Oscillation",
+			"ID": "Voltage_Oscillation",
+			"Description": "Voltage Oscillation",
+			
+			"Toggle ID": "Voltage_Oscillation_Toggle",
+			"Status ID": "Voltage_Oscillation_Status",
+			
+			"Controlled Value ID": "MCP4725_Value",
+			"Amplitude ID": "Oscillator_Amplitude",
+			"Period ID": "Oscillator_Period",
+			"Offset ID": "Oscillator_Offset"
+		},{
+			"Type": "MBED",
+			"ID": "Nucleo_Server",
+			"Description": "Nucleo Survey Loop",
+			
+			"Toggle ID": "MBED_Server_Toggle",
+			"Status ID": "MBED_Server_Status",
+			
+			"Port Name": "COM4",
+			"Devices":[
+				{
+					"Type": "Toggle",
+					"ID": 1,
+					"Feedback Status ID": "Nucleo_Feedback_Status",
+					
+					"Read State ID": "Nucleo_Onboard_LED_State_Read",
+					"Established State ID": "Nucleo_Onboard_LED_State_Est"
+				},{
+					"Type": "Toggle",
+					"ID": 3,
+					"Feedback Status ID": "Nucleo_Feedback_Status",
+					
+					"Read State ID": "Laser_650nm_State_Read",
+					"Established State ID": "Laser_650nm_State_Est"
+				},{
+					"Type": "ADC",
+					"ID": 2,
+					"Feedback Status ID": "Nucleo_Feedback_Status",
+					
+					"Channel 0 Parameter ID": "ADC_Channel_0",
+					"Channel 1 Parameter ID": "ADC_Channel_1"
+				},{
+					"Type": "MCP4725",
+					"ID": 4,
+					"Feedback Status ID": "Nucleo_Feedback_Status",
+					
+					"Established Value ID": "MCP4725_Value"
+				}
+			]
+		}
+    ],
+	
+	"Default Launch Toggles":[
+		"MBED_Server_Toggle",
+		"UDP_Server_Toggle"
+	]
+}
