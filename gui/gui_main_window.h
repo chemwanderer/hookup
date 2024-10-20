@@ -26,4 +26,4 @@ namespace gui {
         if (!_pBlock) { return; }
         ui.tabWidgetBlocks->addTab(_pBlock, _pBlock->blockTitle());
     }
-} // namespace gui
+}
