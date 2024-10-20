@@ -1,23 +1,23 @@
 ﻿#pragma once
 //////////////////////////////////////////////////////////////
-//															//
-// engine::routine::inner::Oscillation is a test routine	//
-// changing the selected parameter in time in accordance	//
-// with the following sinusoidal rule:						//
-//															//
-// v(t) = A * sin((2 * pi / T) * t) + b,					//
-//															//
-// where													//
-// v is the selected parameter value;						//
-// t is the time from the beginning;						//
-// A is the amplitude;										//
-// T is the oscillation period;								//
-// b is the offset;											//
-// pi is the number π.										//
-//															//
-// Can be used for changing voltage level sended to DAC in	//
-// time, for example.										//
-//															//
+//							    //
+// engine::routine::inner::Oscillation is a test routine    //
+// changing the selected parameter in time in accordance    //
+// with the following sinusoidal rule:			    //
+//							    //
+// v(t) = A * sin((2 * pi / T) * t) + b,		    //
+//							    //
+// where						    //
+// v is the selected parameter value;			    //
+// t is the time from the beginning;			    //
+// A is the amplitude;					    //
+// T is the oscillation period;				    //
+// b is the offset;					    //
+// pi is the number π.					    //
+//							    //
+// Can be used for changing voltage level sended to DAC in  //
+// time, for example.					    //
+//							    //
 //////////////////////////////////////////////////////////////
 #include <QTime>
 #include "engine/routine/engine_routine_base.h"
