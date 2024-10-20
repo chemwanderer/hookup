@@ -11,19 +11,19 @@
 // General message structure (both request & response):   //
 // 0     | 0xaa                                           //
 // 1     | 0x55                                           //
-// 2     | package size N (lo)							  //
+// 2     | package size N (lo)				  //
 // 3     | package size N (hi)                            //
 // 4     | package                                        //
 // ...   | package                                        //
 // 3 + N | package                                        //
 // 4 + N | checksum                                       //
-//														  //
+//							  //
 // Internal package structure:                            //
 // 0         | read/write code                            //
 // 1         | string id size M (lo)                      //
 // 2         | string id size M (hi)                      //
 // 3         | string id                                  //
-// ...       | string id								  //
+// ...       | string id				  //
 // 2 + M     | string id                                  //
 // 3 + M     | value size K (lo)                          //
 // 4 + M     | value size K (hi)                          //
