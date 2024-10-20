@@ -1,0 +1,97 @@
+{
+    "WIDGETS":[
+		{
+			"Type": "Toggle",
+			"Unique Name": "Nucleo_Onboard_LED_Toggle_Widget",
+			"Description": "Onboard LED",
+			
+			"Read State ID": "Nucleo_Onboard_LED_State_Read",
+			"Established State ID": "Nucleo_Onboard_LED_State_Est",
+			"Feedback Status ID": "Nucleo_Feedback_Status"
+		},{
+			"Type": "Toggle",
+			"Unique Name": "Laser_650nm_Toggle_Widget",
+			"Description": "Laser (650 nm)",
+			
+			"Read State ID": "Laser_650nm_State_Read",
+			"Established State ID": "Laser_650nm_State_Est",
+			"Feedback Status ID": "Nucleo_Feedback_Status"
+		},{
+			"Type": "Read Only Value",
+			"Unique Name": "ADC_Channel_0_Widget",
+			"Description": "Channel 0 (ADC)",
+			
+			"Value ID": "ADC_Channel_0",
+			"Precision": 4,
+			"Format": "Floating",
+			"Feedback Status ID": "Nucleo_Feedback_Status"
+		},{
+			"Type": "Read Only Value",
+			"Unique Name": "ADC_Channel_1_Widget",
+			"Description": "Empty Channel",
+			
+			"Value ID": "ADC_Channel_1",
+			"Precision": 4,
+			"Format": "Floating",
+			"Feedback Status ID": "Nucleo_Feedback_Status"
+		},{
+			"Type": "Controlled Value",
+			"Unique Name": "ADC_Channel_0_Control_Widget",
+			"Description": "Normalized Voltage",
+			
+			"Read Value ID": "ADC_Channel_0",
+			"Established Value ID": "MCP4725_Value",
+			"Feedback Status ID": "Nucleo_Feedback_Status"
+		},
+		
+		{
+			"Type": "Controlled Value",
+			"Unique Name": "Voltage_Oscillator_Amplitude",
+			"Description": "Amplitude (MCP4725)",
+			
+			"Established Value ID": "Oscillator_Amplitude",
+			"Read Value ID": "Oscillator_Amplitude"
+		},{
+			"Type": "Controlled Value",
+			"Unique Name": "Voltage_Oscillator_Offset",
+			"Description": "Offset (MCP4725)",
+			
+			"Established Value ID": "Oscillator_Offset",
+			"Read Value ID": "Oscillator_Offset"
+		},{
+			"Type": "Controlled Value",
+			"Unique Name": "Voltage_Oscillator_Period",
+			"Description": "Period (MCP4725)",
+			
+			"Established Value ID": "Oscillator_Period",
+			"Read Value ID": "Oscillator_Period"
+		},{
+			"Type": "Toggle",
+			"Unique Name": "Oscillator_Toggle",
+			"Description": "Oscillator Toggle",
+			
+			"Established State ID": "Voltage_Oscillation_Toggle"
+		}
+	],
+	
+	"BLOCKS":[
+		{
+			"Title": "Nucleo",
+			"Widgets":[
+				"Nucleo_Onboard_LED_Toggle_Widget",
+				"Laser_650nm_Toggle_Widget",
+				"ADC_Channel_0_Widget",
+				"ADC_Channel_1_Widget",
+				"ADC_Channel_0_Control_Widget"
+			]
+		},{
+			"Title": "Oscillator",
+			"Widgets":[
+				"Oscillator_Toggle",
+				"Voltage_Oscillator_Amplitude",
+				"Voltage_Oscillator_Offset",
+				"Voltage_Oscillator_Period"
+			]
+		}
+	]
+}
