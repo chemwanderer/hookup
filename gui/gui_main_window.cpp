@@ -10,4 +10,4 @@ namespace gui {
 
     MainWindow::~MainWindow()
     {}
-} // namespace gui
+}
