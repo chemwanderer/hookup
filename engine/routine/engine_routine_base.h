@@ -1,8 +1,8 @@
 #pragma once
 //////////////////////////////////////////////////////
-//													//
-// Base class of a separate-threaded routine.		//
-//													//
+//						    //
+// Base class of a separate-threaded routine.	    //
+//						    //
 //////////////////////////////////////////////////////
 #include <mutex>
 
