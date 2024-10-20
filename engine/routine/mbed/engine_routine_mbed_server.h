@@ -34,7 +34,7 @@ namespace engine::routine::mbed {
 			INVALID_IDX = 0xff'ff'ff'ff,
 
 			SERIAL_OPEN_ATTEMPT_PAUSE = 500,	// ms
-			READ_ATTEMPT_DURATION = 10,			// ms
+			READ_ATTEMPT_DURATION = 10,		// ms
 			MAX_READ_ATTEMPTS_NUMBER = 100,
 
 			WRAPPER_SIZE = 4,
