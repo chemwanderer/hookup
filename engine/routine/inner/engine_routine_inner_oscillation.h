@@ -15,7 +15,7 @@
 // b is the offset;					    //
 // pi is the number π.					    //
 //							    //
-// Can be used for changing voltage level sended to DAC in  //
+// Can be used for changing voltage level sent to DAC in    //
 // time, for example.					    //
 //							    //
 //////////////////////////////////////////////////////////////
