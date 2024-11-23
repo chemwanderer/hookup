@@ -1,18 +1,19 @@
-﻿#pragma once
-#include <cstdint>
-#include <concepts>
+#pragma once
 
-namespace engine {
-	enum class ToggleStatus : char 
-	{
-		off = 0,
-		on = 1,
-		undefined = -1
-	};
-
-	template<typename T>
-	concept Container = requires(T _obj) {
+namespace engine::routine {
+	template<typename _T>
+	concept RoutineBox = requires(_T _obj) {
 		_obj.end();
 		_obj.insert(_obj.end(), *(_obj.begin()));
+	};
+
+	// routine execution status:
+	enum class Status : char
+	{
+		waiting = 1,
+		trigger = 2,
+		running = 3,
+		braking = 4,
+		quitted = 5
 	};
 }
