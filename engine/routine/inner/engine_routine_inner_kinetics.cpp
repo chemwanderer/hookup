@@ -28,7 +28,7 @@ namespace engine::routine::inner {
 
 			pCurrentADC_->submit(&currentADC);
 			time = static_cast<double>(timer.elapsed()) * 1e-3;
-			//transmittance = 100. * currentADC / zeroADC;
+			
 			transmittance = 100 * exp(zeroADC - currentADC);
 			pTransmittance_->accept(&transmittance);
 
