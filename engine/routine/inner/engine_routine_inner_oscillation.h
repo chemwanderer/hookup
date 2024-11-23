@@ -6,7 +6,7 @@
 // with the following sinusoidal rule:			    //
 //							    //
 // v(t) = A * sin((2 * pi / T) * t) + b,		    //
-//							    //
+//						 	    //
 // where						    //
 // v is the selected parameter value;			    //
 // t is the time from the beginning;			    //
@@ -15,7 +15,7 @@
 // b is the offset;					    //
 // pi is the number π.					    //
 //							    //
-// Can be used for changing voltage level sent to DAC over  //
+// Can be used for changing voltage level sended to DAC in  //
 // time, for example.					    //
 //							    //
 //////////////////////////////////////////////////////////////
@@ -26,7 +26,7 @@
 namespace engine::routine {
 	class Base;
 
-	template<RoutineBox T>
+	template<RoutineBox _T>
 	class Factory;
 }
 
@@ -58,9 +58,7 @@ namespace engine::routine::inner {
 
 	private:
 		static constexpr uint32_t DEFAULT_SLEEP_DURATION = 50; //ms
-		static constexpr double
-			PI = 3.1415926535,
-			MIN_PERIOD_SECS = 0.1;
+		static constexpr double MIN_PERIOD_SECS = 0.1;
 	};
 
 	inline Oscillation::Oscillation(const QString& _uniqueName,
