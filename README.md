@@ -5,5 +5,6 @@ The configuration of the app is customizable. The list of controlled parameters 
 The application structure is schematically shown on the image below.
 ![alt text](https://github.com/chemwanderer/hookup/blob/main/supporting_information/app_scheme.jpg)
 <br />
+<br />
 One of the possible configurations for this app has been implemented to control an improvised photometric device. The curve on the image below was registered for an alkaline solution of Ponceau 4R azo dye and sodium sulphite and represents the changes in the solution transmittance (λ ~ 500 nm) over time as the reaction takes place. The chart is a fragment of the application graphical user interface.
 ![alt text](https://github.com/chemwanderer/hookup/blob/main/supporting_information/kinetic_curve_ponceau_sulphite_2.jpg)
