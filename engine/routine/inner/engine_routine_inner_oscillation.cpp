@@ -1,4 +1,5 @@
-﻿#include "engine_routine_inner_oscillation.h"
+#include "kit/kit.h"
+#include "engine_routine_inner_oscillation.h"
 #include <QElapsedTimer>
 
 namespace engine::routine::inner {
@@ -23,7 +24,7 @@ namespace engine::routine::inner {
 
 			if (std::abs(period) > MIN_PERIOD_SECS) {
 				secs = static_cast<double>(timer.elapsed()) * 1e-3;
-				value = offset + amplitude * sin((2 * PI) / period * secs);
+				value = offset + amplitude * sin((2 * kit::pi()) / period * secs);
 			}
 			else {
 				value = 0.;
