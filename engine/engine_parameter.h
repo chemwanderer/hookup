@@ -6,10 +6,10 @@
 #include <QString>
 
 namespace engine {
-	template<Container Vec>
+	template<Container _Vec>
 	class PrmFactory;
 
-	template<typename T>
+	template<typename _T>
 	class Parameter :
 		public IValue
 	{
@@ -20,7 +20,7 @@ namespace engine {
 		Parameter(const Parameter&) = delete;
 
 	private:
-		explicit Parameter(const QString&, T) noexcept;
+		explicit Parameter(const QString&, _T) noexcept;
 		Parameter() { assert(false); }
 
 	public:
@@ -35,63 +35,70 @@ namespace engine {
 
 	public:
 		const QString& description() const;
+		const QString& quantityName() const;
+		const QString& units() const;
 
 	private:
 		const QString uniqueName_{};
 		QString description_{};
 
-		std::atomic<bool> isManual_{ true };
+		QString quantityName_{ QStringLiteral("[quantity]")};
+		QString units_{ QStringLiteral("[units]") };
 
-		mutable std::mutex mtx_;
-		T value_;
+		std::atomic<bool> isManual_{ true };
+		std::atomic<_T> value_;
 	};
 
-	template<typename T>
-	inline Parameter<T>::Parameter(const QString& _uniqueName, T _initValue) noexcept :
+	template<typename _T>
+	inline Parameter<_T>::Parameter(const QString& _uniqueName, _T _initValue) noexcept :
 		uniqueName_(_uniqueName),
 		value_(_initValue)
 	{}
 
-	template<typename T>
-	QByteArray Parameter<T>::submit() const {
-		QByteArray result(sizeof(T), 0x00);
-		mtx_.lock();
-		*reinterpret_cast<T*>(result.data()) = value_;
-		mtx_.unlock();
+	template<typename _T>
+	QByteArray Parameter<_T>::submit() const {
+		QByteArray result(sizeof(_T), 0x00);
+		*reinterpret_cast<_T*>(result.data()) = value_.load();
 		return result;
 	}
 
-	template<typename T>
-	void Parameter<T>::submit(void* _pDst) const {
-		mtx_.lock();
-		*reinterpret_cast<T*>(_pDst) = value_;
-		mtx_.unlock();
+	template<typename _T>
+	void Parameter<_T>::submit(void* _pDst) const {
+		*reinterpret_cast<_T*>(_pDst) = value_.load();
 	}
 
-	template<typename T>
-	void Parameter<T>::accept(const void* _pSrc) {
-		mtx_.lock();
-		value_ = *reinterpret_cast<const T*>(_pSrc);
-		mtx_.unlock();
+	template<typename _T>
+	void Parameter<_T>::accept(const void* _pSrc) {
+		value_.store(*reinterpret_cast<const _T*>(_pSrc));
 	}
 
-	template<typename T>
-	const QString& Parameter<T>::uniqueName() const {
+	template<typename _T>
+	const QString& Parameter<_T>::uniqueName() const {
 		return uniqueName_;
 	}
 
-	template<typename T>
-	const QString& Parameter<T>::description() const {
+	template<typename _T>
+	const QString& Parameter<_T>::description() const {
 		return description_;
 	}
 
-	template<typename T>
-	bool Parameter<T>::manualControl() const {
+	template<typename _T>
+	bool Parameter<_T>::manualControl() const {
 		return isManual_.load();
 	}
 
-	template<typename T>
-	void Parameter<T>::setManualControl(bool _isManual) {
+	template<typename _T>
+	void Parameter<_T>::setManualControl(bool _isManual) {
 		isManual_.store(_isManual);
+	}
+
+	template<typename _T>
+	inline const QString& Parameter<_T>::units() const {
+		return units_;
+	}
+
+	template<typename _T>
+	inline const QString& Parameter<_T>::quantityName() const {
+		return quantityName_;
 	}
 }
