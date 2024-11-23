@@ -1,11 +1,11 @@
-﻿#pragma once
+#pragma once
 //////////////////////////////////////////////////////////
-//							//
-// engine::Terminal is a central singlton for the	//
-// backend management. It creates the instances of	//
-// routines and shared parameters and owns the		//
-// corresponding pointers.				//
-//							//
+//														//
+// engine::Terminal is a central singlton for the		//
+// backend management. It creates the instances of		//
+// routines and shared parameters and owns the			//
+// corresponding pointers.								//
+//														//
 //////////////////////////////////////////////////////////
 #include <vector>
 #include <mutex>
@@ -32,10 +32,10 @@ namespace engine {
 		// for all routines to stop
 		static void halt();
 
-		// search the shared parameter via its string id
+		// search the shared parameter by its string id
 		static IValue* parameter(QStringView _uniqueName);
 
-		// search the shared parameter via its string id
+		// search the shared parameter by its string id
 		static IValue* parameter(const QString& _uniqueName);
 
 	public:
