@@ -1,11 +1,11 @@
 #pragma once
 //////////////////////////////////////////////////////////
-//														//
-// engine::Terminal is a central singlton for the		//
-// backend management. It creates the instances of		//
-// routines and shared parameters and owns the			//
-// corresponding pointers.								//
-//														//
+//							//
+// engine::Terminal is a central singlton for the	//
+// backend management. It creates the instances of	//
+// routines and shared parameters and owns the		//
+// corresponding pointers.				//
+//							//
 //////////////////////////////////////////////////////////
 #include <vector>
 #include <mutex>
