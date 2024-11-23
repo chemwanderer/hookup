@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <QString>
 
 namespace gui::pact {
@@ -52,6 +52,13 @@ namespace gui::pact {
 
 			static constexpr QStringView __valueReadIDKey__ =	u"Read Value ID";
 			static constexpr QStringView __valueEstIDKey__ =	u"Established Value ID";
+			static constexpr QStringView __feedbackStatusID__ = 	u"Feedback Status ID";
+		}
+
+		namespace observer {
+			static constexpr QStringView __typeSignature__ = 	u"Observer";
+
+			static constexpr QStringView __valueReadIDKey__ = 	u"Read Value ID";
 			static constexpr QStringView __feedbackStatusID__ = 	u"Feedback Status ID";
 		}
 	}
