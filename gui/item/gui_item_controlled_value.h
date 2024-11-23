@@ -7,7 +7,7 @@
 #include "engine/engine_parameter.h"
 
 namespace gui::item {
-	template<ItemBox T>
+	template<ItemBox _T>
 	class Factory;
 
 	class ControlledValue :
