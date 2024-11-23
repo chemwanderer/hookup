@@ -11,7 +11,7 @@
 #include "kit/kit.h"
 
 namespace gui::item {
-	template<ItemBox T>
+	template<ItemBox _T>
 	class Factory;
 
 	class Observer :
