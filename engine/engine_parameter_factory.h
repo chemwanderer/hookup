@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "engine/engine_common.h"
 #include "engine/routine/engine_routine_common.h"
 #include "engine/pact/engine_pact.h"
@@ -8,11 +8,11 @@
 #include <QJsonObject>
 
 namespace engine {
-	template<Container Vec>
+	template<Container _Vec>
 	class PrmFactory
 	{
 	public:
-		explicit PrmFactory(Vec*, const QJsonArray*) noexcept;
+		explicit PrmFactory(_Vec*, const QJsonArray*) noexcept;
 		PrmFactory(const PrmFactory&) = delete;
 		~PrmFactory();
 
@@ -20,28 +20,28 @@ namespace engine {
 		PrmFactory() noexcept = default;
 
 	private:
-		Vec* pPrmBox_{ nullptr };
+		_Vec* pPrmBox_{ nullptr };
 		const QJsonArray* pPrmInfo_{};
 
 	private:
 		static IValue* create(const QJsonObject&);
 
 	private:
-		template<typename ValueType>
+		template<typename _ValueType>
 		static IValue* createPrm(const QJsonObject&);
 		
 		static IValue* createToggleStatus(const QJsonObject&);
 		static IValue* createRoutineStatus(const QJsonObject&);
 	};
 
-	template<Container Vec>
-	PrmFactory<Vec>::PrmFactory(Vec* _pPrmBox, const QJsonArray* _pPrmInfo) noexcept :
+	template<Container _Vec>
+	PrmFactory<_Vec>::PrmFactory(_Vec* _pPrmBox, const QJsonArray* _pPrmInfo) noexcept :
 		pPrmBox_(_pPrmBox),
 		pPrmInfo_(_pPrmInfo)
 	{}
 
-	template<Container Vec>
-	PrmFactory<Vec>::~PrmFactory()
+	template<Container _Vec>
+	PrmFactory<_Vec>::~PrmFactory()
 	{
 		if (!pPrmBox_ || !pPrmInfo_) { return; }
 
@@ -53,8 +53,8 @@ namespace engine {
 		}
 	}
 
-	template<Container Vec>
-	IValue* PrmFactory<Vec>::create(const QJsonObject& _info) {
+	template<Container _Vec>
+	IValue* PrmFactory<_Vec>::create(const QJsonObject& _info) {
 		if (!_info.contains(pact::parameter::__typeKey__)) { return nullptr; }
 		if (!_info.contains(pact::parameter::__idKey__)) { return nullptr; }
 		if (!_info.contains(pact::parameter::__descriptionKey__)) { return nullptr; }
@@ -69,22 +69,29 @@ namespace engine {
 		return nullptr;
 	}
 
-	template<Container Vec> 
-	template<typename ValueType>
-	IValue* PrmFactory<Vec>::createPrm(const QJsonObject& _info) {
+	template<Container _Vec>
+	template<typename _ValueType>
+	IValue* PrmFactory<_Vec>::createPrm(const QJsonObject& _info) {
 		QString uniqueName = _info.value(pact::parameter::__idKey__).toString();
 		QString description = _info.value(pact::parameter::__descriptionKey__).toString();
 		bool isManual = _info.value(pact::parameter::__isManual__).toBool();
 
-		auto* pPrm = new Parameter<ValueType>(uniqueName, 0);
+		auto* pPrm = new Parameter<_ValueType>(uniqueName, 0);
 		pPrm->description_ = description;
 		pPrm->isManual_.store(isManual);
+
+		if (_info.contains(pact::parameter::__quantityNameKey__)) {
+			pPrm->quantityName_ = _info.value(pact::parameter::__quantityNameKey__).toString();
+		}
+		if (_info.contains(pact::parameter::__unitsKey__)) {
+			pPrm->units_ = _info.value(pact::parameter::__unitsKey__).toString();
+		}
 
 		return pPrm;
 	}
 
-	template<Container T>
-	IValue* PrmFactory<T>::createToggleStatus(const QJsonObject& _info) {
+	template<Container _T>
+	IValue* PrmFactory<_T>::createToggleStatus(const QJsonObject& _info) {
 		QString uniqueName = _info.value(pact::parameter::__idKey__).toString();
 		QString description = _info.value(pact::parameter::__descriptionKey__).toString();
 
@@ -95,8 +102,8 @@ namespace engine {
 		return pToggleStatus;
 	}
 
-	template<Container T>
-	IValue* PrmFactory<T>::createRoutineStatus(const QJsonObject& _info) {
+	template<Container _T>
+	IValue* PrmFactory<_T>::createRoutineStatus(const QJsonObject& _info) {
 		QString uniqueName = _info.value(pact::parameter::__idKey__).toString();
 		QString description = _info.value(pact::parameter::__descriptionKey__).toString();
 
