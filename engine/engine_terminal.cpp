@@ -1,4 +1,4 @@
-﻿#include "engine_terminal.h"
+#include "engine_terminal.h"
 
 #include "engine/routine/engine_routine_factory.h"
 #include "engine/engine_parameter_factory.h"
