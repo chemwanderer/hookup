@@ -4,6 +4,7 @@ The following code includes some examples of implementation of tools for interac
 The configuration of the app is customizable. The list of controlled parameters and procedures used, as well as the structure of the graphical user interface, can be set up via input JSON files (see the examples: [assembly.json](https://github.com/chemwanderer/hookup/blob/main/hookup_data/assembly.json) & [gui.json](https://github.com/chemwanderer/hookup/blob/main/hookup_data/gui.json)).<br />
 The application structure is schematically shown on the image below.
 <br />
+<br />
 ![alt text](https://github.com/chemwanderer/hookup/blob/main/supporting_information/app_scheme.jpg)
 <br />
 <br />
