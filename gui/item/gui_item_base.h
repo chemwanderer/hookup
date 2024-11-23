@@ -1,15 +1,15 @@
-﻿#pragma once
+#pragma once
 #include "gui/gui_i_readout.h"
 #include <QWidget>
 
 namespace gui::item {
-	template<typename T>
-	concept ItemBox = requires(T _obj) {
+	template<typename _T>
+	concept ItemBox = requires(_T _obj) {
 		_obj.end();
 		_obj.insert(_obj.end(), *(_obj.begin()));
 	};
 
-	template<ItemBox T>
+	template<ItemBox _T>
 	class Factory;
 
 	class Base :
