@@ -7,6 +7,7 @@
 #include "gui/item/gui_item_mock.h"
 #include "gui/item/gui_item_read_only_value.h"
 #include "gui/item/gui_item_controlled_value.h"
+#include "gui/item/gui_item_observer.h"
 
 // engine:
 #include "engine/engine_terminal.h"
@@ -42,6 +43,7 @@ namespace gui::item {
 		static Base* createToggle(const QJsonObject&, QWidget*);
 		static Base* createReadOnlyValue(const QJsonObject&, QWidget*);
 		static Base* createControlledValue(const QJsonObject&, QWidget*);
+		static Base* createObserver(const QJsonObject&, QWidget*);
 	};
 
 	template<ItemBox Vec>
@@ -72,8 +74,37 @@ namespace gui::item {
 		if (pact::item::toggle::__typeSignature__ == type) { return createToggle(_info, _pParent); }
 		if (pact::item::readonly::__typeSignature__ == type) { return createReadOnlyValue(_info, _pParent); }
 		if (pact::item::controlled::__typeSignature__ == type) { return createControlledValue(_info, _pParent); }
+		if (pact::item::observer::__typeSignature__ == type) { return createObserver(_info, _pParent); }
 
 		return nullptr;
+	}
+
+	template<ItemBox T>
+	Base* Factory<T>::createObserver(const QJsonObject& _info, QWidget* _pParent) {
+		QString uniqueName = _info.value(pact::item::__uniqueNameKey__).toString();
+		QString description = _info.value(pact::item::__descriptionKey__).toString();
+
+		QString valueID = _info.value(pact::item::observer::__valueReadIDKey__).toString();
+
+		auto* pValuePrm = dynamic_cast<engine::Parameter<qreal>*>(engine::Terminal::parameter(valueID));
+		if (!pValuePrm) { return nullptr; }
+
+		auto* pObserver = new Observer(uniqueName, _pParent);
+		pObserver->description_ = description;
+
+		pObserver->pValueRead_ = pValuePrm;
+		pObserver->ui.labelCurrentSign->setText(pValuePrm->description());
+
+		QString ordinateSignature = pValuePrm->quantityName() + QStringLiteral(", ") + pValuePrm->units();
+		pObserver->model_.setSignatures(QStringLiteral("Time, s"), ordinateSignature);
+
+		if (_info.contains(pact::item::observer::__feedbackStatusID__)) {
+			QString feedbackStatusID = _info.value(pact::item::observer::__feedbackStatusID__).toString();
+			auto* pFeedbackStatusPrm = dynamic_cast<engine::Parameter<bool>*>(engine::Terminal::parameter(feedbackStatusID));
+			pObserver->pFeedbackStatus_ = pFeedbackStatusPrm;
+		}
+
+		return pObserver;
 	}
 
 	template<ItemBox T>
@@ -82,7 +113,7 @@ namespace gui::item {
 		QString description = _info.value(pact::item::__descriptionKey__).toString();
 
 		QString valueEstID = _info.value(pact::item::controlled::__valueEstIDKey__).toString();
-		
+
 		auto* pValueEstPrm = dynamic_cast<engine::Parameter<qreal>*>(engine::Terminal::parameter(valueEstID));
 		if (!pValueEstPrm) { return nullptr; }
 
@@ -177,7 +208,11 @@ namespace gui::item {
 		QString uniqueName = _info.value(pact::item::__uniqueNameKey__).toString();
 		QString description = _info.value(pact::item::__descriptionKey__).toString();
 
+		//QString stateReadID = _info.value(pact::item::toggle::__stateReadID__).toString();
 		QString stateEstID = _info.value(pact::item::toggle::__stateEstID__).toString();
+
+		//auto* pStateReadPrm = dynamic_cast<engine::Parameter<engine::ToggleStatus>*>(engine::Terminal::parameter(stateReadID));
+		//if (!pStateReadPrm) { return nullptr; }
 
 		auto* pStateEstPrm = dynamic_cast<engine::Parameter<bool>*>(engine::Terminal::parameter(stateEstID));
 		if (!pStateEstPrm) { return nullptr; }
@@ -186,6 +221,7 @@ namespace gui::item {
 		pToggleWidget->description_ = description;
 
 		pToggleWidget->pStateEst_ = pStateEstPrm;
+		//pToggleWidget->pStateRead_ = pStateReadPrm;
 
 		if (_info.contains(pact::item::toggle::__feedbackStatusID__)) {
 			QString feedbackStatusID = _info.value(pact::item::toggle::__feedbackStatusID__).toString();
